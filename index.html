@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DronaHQ Pricing V2 (Data-Driven)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>DronaHQ Pricing V2 (Data-Driven)</h1>
+  
+  <div id="loginWrapper">
+    <h2>Enter Password to Access Pricing Tool</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password" />
+    <button onclick="checkPassword()">Login</button>
+    <p id="loginError" style="color: red; display: none;">Incorrect password. Try again.</p>
+  </div>
+
+  <div class="containerRoot" style="display: none;">
+    <!-- Column 1: Main Selections -->
+    <div class="col col1">
+      <div class="section">
+        <h3>Plan / Model / Deployment</h3>
+        <label>Plan</label>
+        <select id="planSelect">
+          <option value="Business">Business</option>
+          <option value="Enterprise">Enterprise</option>
+        </select>
+
+        <label>Deployment</label>
+        <select id="deploySelect">
+          <option value="Cloud">Cloud</option>
+          <option value="Self Host">Self Host</option>
+        </select>
+
+        <label>Model</label>
+        <select id="modelSelect"></select>
+      </div>
+      
+      <label class="addon-toggle">
+        <input type="checkbox" id="addonFlag" checked /> Include Add-ons
+      </label>
+
+      <!-- Developer Section -->
+      <div class="section model-section" id="developerSection">
+        <h3>Developer-Based Fields</h3>
+        <label>Number of Developers</label>
+        <input type="text" id="numDevelopers" placeholder="e.g. 5" />
+        <div class="subSection addon-container-wrapper">
+          <h4>Add-Ons (Developer Model)</h4>
+          <!-- JS will build checkboxes here -->
+          <div id="developerAddonsContainer" class="addon-container"></div>
+        </div>
+      </div>
+
+      <!-- User Section -->
+      <div class="section model-section" id="userSection">
+        <h3>User-Based Fields</h3>
+        <label>Number of Users</label>
+        <input type="text" id="numUsers" placeholder="e.g. 100" />
+        <div class="subSection addon-container-wrapper">
+          <h4>Add-Ons (User-Based)</h4>
+          <!-- JS will build dropdowns here -->
+          <div id="userAddonsContainer" class="addon-container"></div>
+        </div>
+      </div>
+
+      <!-- Usage Section -->
+      <div class="section model-section" id="usageSection">
+        <h3>Usage-Based Fields</h3>
+        <label>Task Tier</label>
+        <small class="description">A task represents a single automated action, counted monthly.</small>
+        <select id="usageTaskTierSelect"></select>
+        <div class="subSection addon-container-wrapper">
+          <h4>Add-Ons (Usage-Based)</h4>
+          <!-- JS will build dropdowns here -->
+          <div id="usageAddonsContainer" class="addon-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2: Other Inputs -->
+    <div class="col col2">
+      <div class="section">
+        <h3>Other Inputs</h3>
+        <label>Terms of Contract</label>
+        <select id="termsSelect">
+          <option value="1">1 Year</option>
+          <option value="2">2 Years</option>
+          <option value="3">3 Years</option>
+        </select>
+        <label>Location</label>
+        <select id="regionSelect">
+          <option value="">Select Region</option>
+          <option value="india">India</option>
+          <option value="outside">Outside India</option>
+        </select>
+        <label>Man-Days (PS)</label>
+        <input type="text" id="psManDays" placeholder="e.g. 5" />
+      </div>
+      <div class="section">
+        <h3>Discounts (%)</h3>
+        <label>Base License</label>
+        <input type="text" id="baseDiscount" placeholder="0" />
+        <label>Licensing</label>
+        <input type="text" id="licDiscount" placeholder="0" />
+        <label>Prof. Services</label>
+        <input type="text" id="psDiscount" placeholder="0" />
+        <label>Add-Ons</label>
+        <input type="text" id="addonsDiscount" placeholder="0" />
+      </div>
+    </div>
+
+    <!-- Column 3: Pricing Summary -->
+    <div class="col col3">
+      <h2>Pricing Summary</h2>
+      <div class="section" id="priceOutput"></div>
+    </div>
+
+    <!-- Column 4: Notes -->
+    <div class="col col4">
+      <div class="section" id="notesSection">
+        <p>You can fill in your extra terms, benefits, disclaimers here.</p>
+        <ul>
+          <li>All usage-based plans have 5 devs included.</li>
+          <li>Additional dev = $1,500/year across all plans.</li>
+          <li>Additional tasks can be purchased in 10k chunks for usage-based only.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPORTANT: Load data first, then the script -->
+  <script src="pricingData.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
