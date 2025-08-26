@@ -10,11 +10,13 @@ const pricingData = {
     },
     "userBased": {
       "Enterprise": { "Self Host": 15000, "Cloud": 15000 },
-      "Business": { "Self Host": 10000, "Cloud": 0 }
+      "Business": { "Self Host": 10000, "Cloud": 0 },
+      "Business Lite": { "Self Host": 5000, "Cloud": 0 }
     },
     "usageBased": {
       "Enterprise": { "Self Host": 0, "Cloud": 0 },
-      "Business": { "Self Host": 0, "Cloud": 0 }
+      "Business": { "Self Host": 0, "Cloud": 0 },
+      "Business Lite": { "Self Host": 0, "Cloud": 0 }
     }
   },
   "licensingTiers": {
@@ -36,6 +38,11 @@ const pricingData = {
       "Business": {
         "Self Host": [{ "maxUsers": 100, "monthlyRate": 25 }, { "maxUsers": 300, "monthlyRate": 20 }, { "maxUsers": null, "monthlyRate": 20 }],
         "Cloud": [{ "maxUsers": 100, "monthlyRate": 25 }, { "maxUsers": 300, "monthlyRate": 20 }, { "maxUsers": null, "monthlyRate": 15 }]
+      },
+      "Business Lite": {
+        "Cloud": [
+          { "maxUsers": null, "monthlyRate": 15 }
+        ]
       }
     },
     "usageBased": {
@@ -97,6 +104,7 @@ const pricingData = {
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "20k runs", "price": 30, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "60k runs", "price": 75, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "150k runs", "price": 150, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Annual Subscription", "price": 12000, "controlType": "checkbox" },
 
     // --- Usage Based (Self Host) ---
     { "model": "Usage Based", "deployment": "Self Host", "addonName": "PDF", "tier": "Activation", "price": 600, "controlType": "select" },
@@ -115,7 +123,8 @@ const pricingData = {
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "100GB", "price": 2400, "controlType": "select" },
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "10GB", "price": 1200, "controlType": "select" },
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "50GB", "price": 2400, "controlType": "select" },
-    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Activation", "price": 3000, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Annual Subscription", "price": 12000, "controlType": "checkbox" },
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" }
   ]
 };
+
