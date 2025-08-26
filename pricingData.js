@@ -41,7 +41,7 @@ const pricingData = {
       },
       "Business Lite": {
         "Cloud": [
-          { "maxUsers": null, "monthlyRate": 15 }
+          { "maxUsers": 300, "monthlyRate": 15 },{ "maxUsers": null, "monthlyRate": 12 }
         ]
       }
     },
