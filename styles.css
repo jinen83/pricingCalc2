@@ -1,0 +1,115 @@
+/* Main layout: 4 columns */
+.containerRoot {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* each column */
+.col {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+}
+
+/* sections */
+.section {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.subSection {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+}
+
+/* Form elements */
+input[type=text], select {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 8px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: .3s;
+  background-color: #f9f9f9;
+}
+
+input[type=text]:focus, select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px 0 rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* General styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 16px;
+  background-color: #f4f6f8;
+}
+
+h1, h2, h3, h4 {
+  color: #123;
+}
+
+/* Price output section */
+#priceOutput {
+  background: #f0f8ff;
+  font-weight: normal;
+  border: 1px solid #cce5ff;
+  border-radius: 4px;
+  padding: 16px;
+  line-height: 1.6;
+}
+#priceOutput div em {
+  color: #666;
+  font-size: 0.85em;
+}
+#priceOutput hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 12px 0;
+}
+
+/* NEW STYLES FOR DYNAMIC ADD-ONS */
+.addon-toggle {
+  display: block;
+  margin: 16px 0;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.addon-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Stack controls vertically */
+  gap: 8px;
+}
+
+.addon-container label {
+  margin-top: 8px;
+  margin-bottom: -4px; /* Reduce space between label and control */
+}
+
+.description {
+  display: block;
+  margin-top: 4px;
+  color: #666;
+  font-size: 0.85em;
+  font-style: italic;
+}
