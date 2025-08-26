@@ -50,10 +50,10 @@ const pricingData = {
     }
   },
   // ==================================================================================
-  // NEW: SINGLE, FLAT ARRAY FOR ALL ADD-ONS. THIS IS NOW THE SINGLE SOURCE OF TRUTH.
+  // COMPLETE, UNABRIDGED LIST OF ADD-ONS IN THE NEW FLAT STRUCTURE
   // ==================================================================================
   "addOns": [
-    // --- Developer Based ---
+    // --- Developer Based (Self Host) ---
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "PDF", "tier": "Unlimited", "price": 15000, "controlType": "checkbox" },
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "Automation", "tier": "Unlimited", "price": 15000, "controlType": "checkbox" },
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "Public Apps", "tier": "Unlimited", "price": 15000, "controlType": "checkbox" },
@@ -68,8 +68,13 @@ const pricingData = {
     { "model": "User Based", "deployment": "Self Host", "addonName": "Automation", "tier": "2.5k", "price": 600, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "Automation", "tier": "10k", "price": 1800, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "Automation", "tier": "50k", "price": 7200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "Automation", "tier": "Unlimited", "price": 15000, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "Public Apps", "tier": "10k", "price": 1500, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "Public Apps", "tier": "50k", "price": 7200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "Public Apps", "tier": "Unlimited", "price": 15000, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "Secured Embed", "tier": "Unlimited", "price": 600, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "File Storage", "tier": "Unlimited", "price": 2500, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "DB Storage", "tier": "Unlimited", "price": 2500, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "20k runs", "price": 30, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "60k runs", "price": 75, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "150k runs", "price": 150, "controlType": "select" },
@@ -77,15 +82,40 @@ const pricingData = {
     // --- User Based (Cloud) ---
     { "model": "User Based", "deployment": "Cloud", "addonName": "PDF", "tier": "10K", "price": 2400, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "PDF", "tier": "50K", "price": 10200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Automation", "tier": "2.5k", "price": 600, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Automation", "tier": "5k", "price": 1200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Automation", "tier": "10k", "price": 1800, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Public Apps", "tier": "5k", "price": 1200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Public Apps", "tier": "10k", "price": 2400, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Public Apps", "tier": "50k", "price": 10200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "Secured Embed", "tier": "Unlimited", "price": 600, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "10GB", "price": 600, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "50GB", "price": 1200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "100GB", "price": 2400, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "10GB", "price": 1200, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "50GB", "price": 2400, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "20k runs", "price": 30, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "60k runs", "price": 75, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "150k runs", "price": 150, "controlType": "select" },
 
-    // --- Usage Based (Self Host & Cloud) ---
+    // --- Usage Based (Self Host) ---
+    { "model": "Usage Based", "deployment": "Self Host", "addonName": "PDF", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Self Host", "addonName": "Automation", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Self Host", "addonName": "Public Apps", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Self Host", "addonName": "File Storage", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Self Host", "addonName": "DB Storage", "tier": "Activation", "price": 600, "controlType": "select" },
     { "model": "Usage Based", "deployment": "Self Host", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" },
-    { "model": "Usage Based", "deployment": "Cloud", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" },
-    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Activation", "price": 3000, "controlType": "select" }
+
+    // --- Usage Based (Cloud) ---
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "PDF", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Automation", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Public Apps", "tier": "Activation", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "10GB", "price": 600, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "50GB", "price": 1200, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "100GB", "price": 2400, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "10GB", "price": 1200, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "50GB", "price": 2400, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Activation", "price": 3000, "controlType": "select" },
+    { "model": "Usage Based", "deployment": "Cloud", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" }
   ]
 };
