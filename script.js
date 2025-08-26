@@ -41,11 +41,15 @@ const addonsDiscountInp = document.getElementById('addonsDiscount');
 
 // --- INITIALIZATION ---
 function init() {
+
+    buildPlanOptions();
+
   // Main selectors
   planSelect.addEventListener('change', onPlanModelDeployChange);
   deploySelect.addEventListener('change', onPlanModelDeployChange);
   modelSelect.addEventListener('change', onPlanModelDeployChange);
   addonFlag.addEventListener('change', onPlanModelDeployChange);
+  planSelect.addEventListener('change', onPlanModelDeployChange);
 
   // Input fields that trigger recalculation
   [numDevelopersInp, numUsersInp, psManDaysInp, baseDiscountInp, licDiscountInp, psDiscountInp, addonsDiscountInp].forEach(inp => {
@@ -148,6 +152,8 @@ function rebuildModelOptions() {
   }
 }
 
+
+
 function buildUsageLicenseTiers(planVal, deployVal) {
   usageTaskTierSelect.innerHTML = "";
   const tierList = pricingData.licensingTiers.usageBased[planVal]?.[deployVal];
@@ -162,6 +168,18 @@ function buildUsageLicenseTiers(planVal, deployVal) {
 }
 
 // --- EVENT HANDLERS ---
+
+function buildPlanOptions() {
+  // Get all the plan names from the 'userBased' section of your pricing data
+  const planNames = Object.keys(pricingData.licensingTiers.userBased); // ["Enterprise", "Business", "Business Lite"]
+
+  planNames.forEach(planName => {
+    const option = document.createElement('option');
+    option.value = planName;
+    option.textContent = planName;
+    planSelect.appendChild(option);
+  });
+}
 
 function onPlanModelDeployChange() {
   rebuildModelOptions();
