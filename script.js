@@ -38,14 +38,61 @@ const baseDiscountInp = document.getElementById('baseDiscount');
 const licDiscountInp = document.getElementById('licDiscount');
 const psDiscountInp = document.getElementById('psDiscount');
 const addonsDiscountInp = document.getElementById('addonsDiscount');
+const notesSection = document.getElementById('notesSection');
+
+
+//new function to display plan features
+
+function displayPlanFeatures(plan) {
+    const planKey = normalizeKey(plan); // "Business Lite" -> "businesslite"
+    const features = planFeaturesData.planFeatures[planKey];
+
+    if (!features) {
+        notesSection.innerHTML = "<h3>Plan Features</h3><p>Select a plan to see details.</p>";
+        return;
+    }
+
+    let html = "<h3>Included Features</h3>";
+
+    // Loop through each category (apps, connectors, etc.)
+    for (const category in features) {
+        html += `<div class="feature-category"><h4>${category.charAt(0).toUpperCase() + category.slice(1)}</h4><ul>`;
+        const categoryFeatures = features[category];
+
+        // Loop through each feature in the category
+        for (const featureName in categoryFeatures) {
+            const value = categoryFeatures[featureName];
+            let displayValue = '';
+
+            if (typeof value === 'boolean') {
+                displayValue = value ? '✔️ Included' : '❌ Not Included';
+            } else {
+                displayValue = value;
+            }
+            
+            // Reformat feature name from camelCase to Title Case
+            const formattedName = featureName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+
+            html += `<li><strong>${formattedName}:</strong> ${displayValue}</li>`;
+        }
+        html += `</ul></div>`;
+    }
+
+    notesSection.innerHTML = html;
+}
+
 
 // --- INITIALIZATION ---
 function init() {
+
+    buildPlanOptions();
+
   // Main selectors
   planSelect.addEventListener('change', onPlanModelDeployChange);
   deploySelect.addEventListener('change', onPlanModelDeployChange);
   modelSelect.addEventListener('change', onPlanModelDeployChange);
   addonFlag.addEventListener('change', onPlanModelDeployChange);
+  planSelect.addEventListener('change', onPlanModelDeployChange);
 
   // Input fields that trigger recalculation
   [numDevelopersInp, numUsersInp, psManDaysInp, baseDiscountInp, licDiscountInp, psDiscountInp, addonsDiscountInp].forEach(inp => {
@@ -148,6 +195,8 @@ function rebuildModelOptions() {
   }
 }
 
+
+
 function buildUsageLicenseTiers(planVal, deployVal) {
   usageTaskTierSelect.innerHTML = "";
   const tierList = pricingData.licensingTiers.usageBased[planVal]?.[deployVal];
@@ -162,6 +211,18 @@ function buildUsageLicenseTiers(planVal, deployVal) {
 }
 
 // --- EVENT HANDLERS ---
+
+function buildPlanOptions() {
+  // Get all the plan names from the 'userBased' section of your pricing data
+  const planNames = Object.keys(pricingData.licensingTiers.userBased); // ["Enterprise", "Business", "Business Lite"]
+
+  planNames.forEach(planName => {
+    const option = document.createElement('option');
+    option.value = planName;
+    option.textContent = planName;
+    planSelect.appendChild(option);
+  });
+}
 
 function onPlanModelDeployChange() {
   rebuildModelOptions();
@@ -185,8 +246,10 @@ function onPlanModelDeployChange() {
   buildAddonsUI("Developer Based", deployVal, "developerAddonsContainer");
   buildAddonsUI("User Based", deployVal, "userAddonsContainer");
   buildAddonsUI("Usage Based", deployVal, "usageAddonsContainer");
-  
+
+  displayPlanFeatures(planVal);
   calcPrice();
+  
 }
 
 // --- CALCULATION LOGIC ---
