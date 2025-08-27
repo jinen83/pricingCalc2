@@ -86,7 +86,7 @@ const planFeaturesData={
         "professionalServices": true
       }
     },
-    "businessLite": {
+    "businesslite": {
       "apps": {
         "webApps": "Unlimited",
         "widgets": true,
