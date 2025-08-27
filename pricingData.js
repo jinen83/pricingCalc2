@@ -14,9 +14,9 @@ const pricingData = {
       "Business Lite": { "Self Host": 5000, "Cloud": 0 }
     },
     "usageBased": {
-      "Enterprise": { "Self Host": 0, "Cloud": 0 },
-      "Business": { "Self Host": 0, "Cloud": 0 },
-      "Business Lite": { "Self Host": 0, "Cloud": 0 }
+      "Enterprise": { "Self Host": 15000, "Cloud": 0 },
+      "Business": { "Self Host": 10000, "Cloud": 0 },
+      "Business Lite": { "Self Host": 5000, "Cloud": 0 }
     }
   },
   "licensingTiers": {
@@ -41,6 +41,14 @@ const pricingData = {
       },
       "Business Lite": {
         "Cloud": [
+
+        
+
+          { "maxUsers": 300, "monthlyRate": 15 },{ "maxUsers": null, "monthlyRate": 12 }
+
+        ],
+
+         "Self Host": [
 
         
 
