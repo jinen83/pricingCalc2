@@ -1,4 +1,4 @@
-const features={
+const planFeaturesData={
   "planFeatures": {
     "starter": {
       "apps": {
