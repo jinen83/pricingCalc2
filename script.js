@@ -38,6 +38,49 @@ const baseDiscountInp = document.getElementById('baseDiscount');
 const licDiscountInp = document.getElementById('licDiscount');
 const psDiscountInp = document.getElementById('psDiscount');
 const addonsDiscountInp = document.getElementById('addonsDiscount');
+const notesSection = document.getElementById('notesSection');
+
+
+//new function to display plan features
+
+function displayPlanFeatures(plan) {
+    const planKey = normalizeKey(plan); // "Business Lite" -> "businesslite"
+    const features = planFeaturesData.planFeatures[planKey];
+
+    if (!features) {
+        notesSection.innerHTML = "<h3>Plan Features</h3><p>Select a plan to see details.</p>";
+        return;
+    }
+
+    let html = "<h3>Included Features</h3>";
+
+    // Loop through each category (apps, connectors, etc.)
+    for (const category in features) {
+        html += `<div class="feature-category"><h4>${category.charAt(0).toUpperCase() + category.slice(1)}</h4><ul>`;
+        const categoryFeatures = features[category];
+
+        // Loop through each feature in the category
+        for (const featureName in categoryFeatures) {
+            const value = categoryFeatures[featureName];
+            let displayValue = '';
+
+            if (typeof value === 'boolean') {
+                displayValue = value ? '✔️ Included' : '❌ Not Included';
+            } else {
+                displayValue = value;
+            }
+            
+            // Reformat feature name from camelCase to Title Case
+            const formattedName = featureName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+
+            html += `<li><strong>${formattedName}:</strong> ${displayValue}</li>`;
+        }
+        html += `</ul></div>`;
+    }
+
+    notesSection.innerHTML = html;
+}
+
 
 // --- INITIALIZATION ---
 function init() {
@@ -203,8 +246,10 @@ function onPlanModelDeployChange() {
   buildAddonsUI("Developer Based", deployVal, "developerAddonsContainer");
   buildAddonsUI("User Based", deployVal, "userAddonsContainer");
   buildAddonsUI("Usage Based", deployVal, "usageAddonsContainer");
-  
+
+  displayPlanFeatures(planVal);
   calcPrice();
+  
 }
 
 // --- CALCULATION LOGIC ---
