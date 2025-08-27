@@ -131,4 +131,3 @@ const pricingData = {
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" }
   ]
 };
-
