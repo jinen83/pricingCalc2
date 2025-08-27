@@ -41,7 +41,11 @@ const pricingData = {
       },
       "Business Lite": {
         "Cloud": [
+
+        
+
           { "maxUsers": 300, "monthlyRate": 15 },{ "maxUsers": null, "monthlyRate": 12 }
+
         ]
       }
     },
@@ -127,3 +131,4 @@ const pricingData = {
     { "model": "Usage Based", "deployment": "Cloud", "addonName": "MCP", "tier": "Activation", "price": 600, "controlType": "select" }
   ]
 };
+
