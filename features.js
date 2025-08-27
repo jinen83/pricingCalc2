@@ -260,7 +260,7 @@ const planFeaturesData={
     },
     "enterprise": {
       "apps": {
-        "webApps": "Custom",
+        "webApps": "Unlimited",
         "widgets": true,
         "mobileAppAccess": true,
         "appCatalogs": true,
@@ -268,7 +268,7 @@ const planFeaturesData={
         "branding": true,
         "customDomain": true,
         "whiteLabeledMobileApp": true,
-        "offlineEnabledMobileApp": false
+        "offlineEnabledMobileApp": true
       },
       "connectors": {
         "dbAndApiConnectors": "Unlimited",
