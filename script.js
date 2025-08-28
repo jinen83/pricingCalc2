@@ -232,7 +232,7 @@ function rebuildModelOptions() {
   let options;
 
   // Check if the selected plan is "Business Lite"
-  if (planVal === "Business Lite") {
+  if (planVal.trim() === "Business Lite") {
     // If it is, only allow the "User Based" model
     options = [{ val: "userBased", text: "User Based" }];
   } else {
