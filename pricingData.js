@@ -15,8 +15,7 @@ const pricingData = {
     },
     "usageBased": {
       "Enterprise": { "Self Host": 0, "Cloud": 0 },
-      "Business": { "Self Host": 0, "Cloud": 0 },
-      "Business Lite": { "Self Host": 0, "Cloud": 0 }
+      "Business": { "Self Host": 0, "Cloud": 0 }
     }
   },
   "licensingTiers": {
