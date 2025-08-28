@@ -5,7 +5,19 @@
  */
 
 // --- UTILITY FUNCTIONS ---
-const normalizeKey = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+/**
+ * Converts a display name like "Business Lite" into a camelCase JSON key like "businessLite".
+ * This is the single source of truth for key conversion.
+ * @param {string} planName - The human-readable plan name.
+ * @returns {string} The camelCase key.
+ */
+function planNameToKey(planName) {
+  if (!planName) return '';
+  const cleanedName = planName.replace(/\s+/g, ' ').trim();
+  return cleanedName.split(' ').map((word, index) =>
+    index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
+  ).join('');
+}
 
 function checkPassword() {
   const input = document.getElementById("passwordInput").value;
@@ -42,18 +54,8 @@ const psDiscountInp = document.getElementById('psDiscount');
 const addonsDiscountInp = document.getElementById('addonsDiscount');
 
 // --- NEW: FUNCTION TO DISPLAY PLAN FEATURES ---
-
-/**
- * Reads the planFeaturesData JSON and displays the included features
- * for the selected plan in the 4th column.
- * @param {string} plan - The selected plan (e.g., "Business Lite").
- */
 function displayPlanFeatures(plan) {
-    // Convert plan name "Business Lite" to camelCase key "businessLite"
-    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-        index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-    ).join('');
-
+    const planKey = planNameToKey(plan); // Use the standardized conversion function
     const features = planFeaturesData.planFeatures[planKey];
 
     if (!features) {
@@ -63,64 +65,42 @@ function displayPlanFeatures(plan) {
 
     let html = "<h3>Included Features</h3>";
 
-    // Loop through each category (apps, connectors, etc.)
     for (const category in features) {
-        // Skip notes objects for this display
         if (category.toLowerCase().includes('notes')) continue;
-
         html += `<div class="feature-category"><h4>${category.charAt(0).toUpperCase() + category.slice(1)}</h4><ul>`;
         const categoryFeatures = features[category];
 
-        // Loop through each feature in the category
         for (const featureName in categoryFeatures) {
-            // Skip internal notes properties
             if (featureName.toLowerCase().includes('notes')) continue;
-
             const value = categoryFeatures[featureName];
-            let displayValue = '';
-
-            if (typeof value === 'boolean') {
-                displayValue = value ? '✔️ Included' : '❌ Not Included';
-            } else {
-                displayValue = value;
-            }
-            
-            // Reformat feature name from camelCase to Title Case
+            let displayValue = (typeof value === 'boolean') ? (value ? '✔️ Included' : '❌ Not Included') : value;
             const formattedName = featureName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-
             html += `<li><strong>${formattedName}:</strong> ${displayValue}</li>`;
         }
         html += `</ul></div>`;
     }
-
     notesSection.innerHTML = html;
 }
 
-
 // --- INITIALIZATION ---
-// This function reads the JSON and builds the Plan dropdown
 function buildPlanOptions() {
+  // The keys in pricingData are the "display names"
   const planNames = Object.keys(pricingData.licensingTiers.userBased); 
   planNames.forEach(planName => {
     const option = document.createElement('option');
-    // Convert camelCase key to Title Case for display
-    const displayName = planName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-    option.value = displayName;
-    option.textContent = displayName;
+    option.value = planName; // e.g., "Business Lite"
+    option.textContent = planName;
     planSelect.appendChild(option);
   });
 }
 
 function init() {
-  buildPlanOptions(); // Build the dynamic plan menu first
-
-  // Main selectors
+  buildPlanOptions();
   planSelect.addEventListener('change', onPlanModelDeployChange);
   deploySelect.addEventListener('change', onPlanModelDeployChange);
   modelSelect.addEventListener('change', onPlanModelDeployChange);
   addonFlag.addEventListener('change', onPlanModelDeployChange);
 
-  // Input fields that trigger recalculation
   [numDevelopersInp, numUsersInp, psManDaysInp, baseDiscountInp, licDiscountInp, psDiscountInp, addonsDiscountInp].forEach(inp => {
     inp.addEventListener('input', calcPrice);
   });
@@ -128,46 +108,37 @@ function init() {
     sel.addEventListener('change', calcPrice);
   });
 
-  // Initial setup
   onPlanModelDeployChange();
 }
 
 // --- EVENT HANDLERS ---
-
 function onPlanModelDeployChange() {
   rebuildModelOptions();
 
   const modelVal = modelSelect.value;
   const deployVal = deploySelect.value;
-  // FIX: Clean the plan value as soon as it's read
-  const planVal = planSelect.value.replace(/\s+/g, ' ').trim();
+  const planVal = planSelect.value; // No need to clean here, it's clean from the source
 
-  // Show/hide the correct model section
   document.querySelectorAll('.model-section').forEach(sec => sec.style.display = 'none');
   const sectionId = `${modelVal.charAt(0).toLowerCase() + modelVal.slice(1, -5)}Section`;
   if (document.getElementById(sectionId)) {
     document.getElementById(sectionId).style.display = 'block';
   }
 
-  // Show/hide the add-on sections based on the checkbox
   document.querySelectorAll('.addon-container-wrapper').forEach(wrapper => {
     wrapper.style.display = addonFlag.checked ? 'block' : 'none';
   });
 
-  // Build the dynamic UI
   buildUsageLicenseTiers(planVal, deployVal);
   buildAddonsUI("Developer Based", deployVal, "developerAddonsContainer");
   buildAddonsUI("User Based", deployVal, "userAddonsContainer");
   buildAddonsUI("Usage Based", deployVal, "usageAddonsContainer");
   
-  // CORRECTLY call the function to update the features list
   displayPlanFeatures(planVal);
-  
   calcPrice();
 }
 
-// --- DYNAMIC UI BUILDER FUNCTIONS (ASSUMED TO BE PRESENT AND CORRECT) ---
-
+// --- DYNAMIC UI BUILDER FUNCTIONS ---
 function addDefaultOption(selectElement) {
   const defaultOpt = document.createElement("option");
   defaultOpt.textContent = "Select an option";
@@ -193,7 +164,6 @@ function buildAddonsUI(model, deploy, containerId) {
   for (const addonName in groupedAddons) {
     const tiers = groupedAddons[addonName];
     const controlType = tiers[0].controlType;
-
     const label = document.createElement("label");
     label.textContent = addonName;
     container.appendChild(label);
@@ -209,7 +179,6 @@ function buildAddonsUI(model, deploy, containerId) {
       const select = document.createElement('select');
       select.dataset.addonName = addonName;
       addDefaultOption(select);
-
       tiers.forEach(tier => {
         const option = document.createElement('option');
         option.value = tier.tier;
@@ -217,7 +186,6 @@ function buildAddonsUI(model, deploy, containerId) {
         option.textContent = `${tier.tier} => $${tier.price} /year`;
         select.appendChild(option);
       });
-
       select.addEventListener('change', calcPrice);
       container.appendChild(select);
     }
@@ -226,20 +194,14 @@ function buildAddonsUI(model, deploy, containerId) {
 
 function rebuildModelOptions() {
   const deployVal = deploySelect.value;
-  const planVal = planSelect.value; // Get the currently selected plan
+  const planVal = planSelect.value;
   const oldModel = modelSelect.value;
   modelSelect.innerHTML = "";
 
   let options;
-
-  // FIX: Collapse multiple spaces and trim before comparison
-  const cleanPlanVal = planVal.replace(/\s+/g, ' ').trim();
-
-  if (cleanPlanVal === "Business Lite") {
-    // If it is, only allow the "User Based" model
+  if (planVal === "Business Lite") {
     options = [{ val: "userBased", text: "User Based" }];
   } else {
-    // Otherwise, use the original logic for Business and Enterprise plans
     options = (deployVal === "Cloud")
       ? [{ val: "userBased", text: "User Based" }, { val: "usageBased", text: "Usage Based" }]
       : [{ val: "developerBased", text: "Developer Based" }, { val: "userBased", text: "User Based" }, { val: "usageBased", text: "Usage Based" }];
@@ -252,7 +214,6 @@ function rebuildModelOptions() {
     modelSelect.appendChild(opt);
   });
 
-  // Attempt to restore the previous selection if it's still a valid option
   if (options.some(o => o.val === oldModel)) {
     modelSelect.value = oldModel;
   }
@@ -260,11 +221,7 @@ function rebuildModelOptions() {
 
 function buildUsageLicenseTiers(planVal, deployVal) {
   usageTaskTierSelect.innerHTML = "";
-  // Convert plan name "Business Lite" to camelCase key "businessLite"
-  const planKey = planVal.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
-  
+  const planKey = planNameToKey(planVal);
   const tierList = pricingData.licensingTiers.usageBased[planKey]?.[deployVal];
   if (!tierList) return;
   addDefaultOption(usageTaskTierSelect);
@@ -276,20 +233,14 @@ function buildUsageLicenseTiers(planVal, deployVal) {
   });
 }
 
-
-// --- CALCULATION LOGIC (ASSUMED TO BE PRESENT AND CORRECT) ---
-
+// --- CALCULATION LOGIC ---
 function getBaseLicense(model, plan, deploy) {
-    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
+  const planKey = planNameToKey(plan);
   return pricingData.baseLicense[model]?.[planKey]?.[deploy] || 0;
 }
 
 function getDeveloperLicensingCost(plan, deploy, devCount) {
-    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
+  const planKey = planNameToKey(plan);
   const tierObj = pricingData.licensingTiers.developerBased[planKey]?.[deploy];
   if (!tierObj || devCount <= tierObj.baseDev) return 0;
   
@@ -312,9 +263,7 @@ function getDeveloperLicensingCost(plan, deploy, devCount) {
 }
 
 function getUserLicensingCost(plan, deploy, userCount) {
-    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
+  const planKey = planNameToKey(plan);
   const tierArray = pricingData.licensingTiers.userBased[planKey]?.[deploy];
   if (!tierArray) return 0;
 
@@ -323,10 +272,8 @@ function getUserLicensingCost(plan, deploy, userCount) {
 }
 
 function getUsageLicensingCost(plan, deploy, tierKey) {
-    const planVal = planSelect.value;
-    const planKey = planVal.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
+  const planVal = planSelect.value;
+  const planKey = planNameToKey(planVal);
   const tierList = pricingData.licensingTiers.usageBased[planKey]?.[deploy];
   const matchedTier = tierList?.find(t => t.tierKey === tierKey);
   return matchedTier ? matchedTier.monthly * 12 : 0;
@@ -354,7 +301,7 @@ function calculateAddOnsTotal() {
 }
 
 function calcPrice() {
-  const planVal = planSelect.value.replace(/\s+/g, ' ').trim();
+  const planVal = planSelect.value;
   const deployVal = deploySelect.value;
   const modelVal = modelSelect.value;
 
