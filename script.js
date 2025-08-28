@@ -49,8 +49,8 @@ const addonsDiscountInp = document.getElementById('addonsDiscount');
  * @param {string} plan - The selected plan (e.g., "Business Lite").
  */
 function displayPlanFeatures(plan) {
-    // FIX: Convert plan name "Business Lite" to camelCase key "businessLite"
-    const planKey = plan.split(' ').map((word, index) => 
+    // Convert plan name "Business Lite" to camelCase key "businessLite"
+    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
         index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
     ).join('');
 
@@ -139,7 +139,8 @@ function onPlanModelDeployChange() {
 
   const modelVal = modelSelect.value;
   const deployVal = deploySelect.value;
-  const planVal = planSelect.value;
+  // FIX: Clean the plan value as soon as it's read
+  const planVal = planSelect.value.replace(/\s+/g, ' ').trim();
 
   // Show/hide the correct model section
   document.querySelectorAll('.model-section').forEach(sec => sec.style.display = 'none');
@@ -231,8 +232,8 @@ function rebuildModelOptions() {
 
   let options;
 
-  // Check if the selected plan is "Business Lite"
-   const cleanPlanVal = planVal.replace(/\s+/g, ' ').trim();
+  // FIX: Collapse multiple spaces and trim before comparison
+  const cleanPlanVal = planVal.replace(/\s+/g, ' ').trim();
 
   if (cleanPlanVal === "Business Lite") {
     // If it is, only allow the "User Based" model
@@ -260,7 +261,7 @@ function rebuildModelOptions() {
 function buildUsageLicenseTiers(planVal, deployVal) {
   usageTaskTierSelect.innerHTML = "";
   // Convert plan name "Business Lite" to camelCase key "businessLite"
-  const planKey = planVal.split(' ').map((word, index) => 
+  const planKey = planVal.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
       index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');
   
@@ -279,14 +280,14 @@ function buildUsageLicenseTiers(planVal, deployVal) {
 // --- CALCULATION LOGIC (ASSUMED TO BE PRESENT AND CORRECT) ---
 
 function getBaseLicense(model, plan, deploy) {
-    const planKey = plan.split(' ').map((word, index) => 
+    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
       index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');
   return pricingData.baseLicense[model]?.[planKey]?.[deploy] || 0;
 }
 
 function getDeveloperLicensingCost(plan, deploy, devCount) {
-    const planKey = plan.split(' ').map((word, index) => 
+    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
       index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');
   const tierObj = pricingData.licensingTiers.developerBased[planKey]?.[deploy];
@@ -311,7 +312,7 @@ function getDeveloperLicensingCost(plan, deploy, devCount) {
 }
 
 function getUserLicensingCost(plan, deploy, userCount) {
-    const planKey = plan.split(' ').map((word, index) => 
+    const planKey = plan.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
       index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');
   const tierArray = pricingData.licensingTiers.userBased[planKey]?.[deploy];
@@ -323,7 +324,7 @@ function getUserLicensingCost(plan, deploy, userCount) {
 
 function getUsageLicensingCost(plan, deploy, tierKey) {
     const planVal = planSelect.value;
-    const planKey = planVal.split(' ').map((word, index) => 
+    const planKey = planVal.replace(/\s+/g, ' ').trim().split(' ').map((word, index) => 
       index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');
   const tierList = pricingData.licensingTiers.usageBased[planKey]?.[deploy];
@@ -353,7 +354,7 @@ function calculateAddOnsTotal() {
 }
 
 function calcPrice() {
-  const planVal = planSelect.value;
+  const planVal = planSelect.value.replace(/\s+/g, ' ').trim();
   const deployVal = deploySelect.value;
   const modelVal = modelSelect.value;
 
