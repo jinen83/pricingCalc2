@@ -70,7 +70,7 @@ const pricingData = {
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "Secured Embed", "tier": "Unlimited", "price": 2500, "controlType": "checkbox" },
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "File Storage", "tier": "Unlimited", "price": 2500, "controlType": "checkbox" },
     { "model": "Developer Based", "deployment": "Self Host", "addonName": "DB Storage", "tier": "Unlimited", "price": 2500, "controlType": "checkbox" },
-    { "model": "Developer Based", "deployment": "Self Host", "addonName": "MCP", "tier": "Unlimited", "price": 2500, "controlType": "checkbox" },
+    { "model": "Developer Based", "deployment": "Self Host", "addonName": "MCP", "tier": "Unlimited", "price": 6000, "controlType": "checkbox" },
 
     // --- User Based (Self Host) ---
     { "model": "User Based", "deployment": "Self Host", "addonName": "PDF", "tier": "10K", "price": 1800, "controlType": "select" },
@@ -85,9 +85,9 @@ const pricingData = {
     { "model": "User Based", "deployment": "Self Host", "addonName": "Secured Embed", "tier": "Unlimited", "price": 600, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "File Storage", "tier": "Unlimited", "price": 2500, "controlType": "select" },
     { "model": "User Based", "deployment": "Self Host", "addonName": "DB Storage", "tier": "Unlimited", "price": 2500, "controlType": "select" },
-    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "20k runs", "price": 30, "controlType": "select" },
-    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "60k runs", "price": 75, "controlType": "select" },
-    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "150k runs", "price": 150, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "20k runs", "price": 360, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "60k runs", "price": 900, "controlType": "select" },
+    { "model": "User Based", "deployment": "Self Host", "addonName": "MCP", "tier": "150k runs", "price": 1800, "controlType": "select" },
 
     // --- User Based (Cloud) ---
     { "model": "User Based", "deployment": "Cloud", "addonName": "PDF", "tier": "10K", "price": 2400, "controlType": "select" },
@@ -104,9 +104,9 @@ const pricingData = {
     { "model": "User Based", "deployment": "Cloud", "addonName": "File Storage", "tier": "100GB", "price": 2400, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "10GB", "price": 1200, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "DB Storage", "tier": "50GB", "price": 2400, "controlType": "select" },
-    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "20k runs", "price": 30, "controlType": "select" },
-    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "60k runs", "price": 75, "controlType": "select" },
-    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "150k runs", "price": 150, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "20k runs", "price": 360, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "60k runs", "price": 900, "controlType": "select" },
+    { "model": "User Based", "deployment": "Cloud", "addonName": "MCP", "tier": "150k runs", "price": 1800, "controlType": "select" },
     { "model": "User Based", "deployment": "Cloud", "addonName": "Dashboard", "tier": "Annual Subscription", "price": 12000, "controlType": "checkbox" },
 
     // --- Usage Based (Self Host) ---
