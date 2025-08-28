@@ -5,20 +5,6 @@
  */
 
 // --- UTILITY FUNCTIONS ---
-/**
- * Converts a display name like "Business Lite" into a camelCase JSON key like "businessLite".
- * This is the single source of truth for key conversion.
- * @param {string} planName - The human-readable plan name.
- * @returns {string} The camelCase key.
- */
-function planNameToKey(planName) {
-  if (!planName) return '';
-  const cleanedName = planName.replace(/\s+/g, ' ').trim();
-  return cleanedName.split(' ').map((word, index) =>
-    index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
-}
-
 function checkPassword() {
   const input = document.getElementById("passwordInput").value;
   const correctPassword = "dronahq2024"; // 🔐 Set your password here
@@ -55,7 +41,9 @@ const addonsDiscountInp = document.getElementById('addonsDiscount');
 
 // --- NEW: FUNCTION TO DISPLAY PLAN FEATURES ---
 function displayPlanFeatures(plan) {
-    const planKey = planNameToKey(plan); // Use the standardized conversion function
+    const planKey = plan.split(' ').map((word, index) => 
+        index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
+    ).join('');
     const features = planFeaturesData.planFeatures[planKey];
 
     if (!features) {
@@ -221,7 +209,7 @@ function rebuildModelOptions() {
 
 function buildUsageLicenseTiers(planVal, deployVal) {
   usageTaskTierSelect.innerHTML = "";
-  const planKey = planNameToKey(planVal);
+  const planKey = planVal;
   const tierList = pricingData.licensingTiers.usageBased[planKey]?.[deployVal];
   if (!tierList) return;
   addDefaultOption(usageTaskTierSelect);
@@ -235,12 +223,12 @@ function buildUsageLicenseTiers(planVal, deployVal) {
 
 // --- CALCULATION LOGIC ---
 function getBaseLicense(model, plan, deploy) {
-  const planKey = planNameToKey(plan);
+  const planKey = plan;
   return pricingData.baseLicense[model]?.[planKey]?.[deploy] || 0;
 }
 
 function getDeveloperLicensingCost(plan, deploy, devCount) {
-  const planKey = planNameToKey(plan);
+  const planKey = plan;
   const tierObj = pricingData.licensingTiers.developerBased[planKey]?.[deploy];
   if (!tierObj || devCount <= tierObj.baseDev) return 0;
   
@@ -263,7 +251,7 @@ function getDeveloperLicensingCost(plan, deploy, devCount) {
 }
 
 function getUserLicensingCost(plan, deploy, userCount) {
-  const planKey = planNameToKey(plan);
+  const planKey = plan;
   const tierArray = pricingData.licensingTiers.userBased[planKey]?.[deploy];
   if (!tierArray) return 0;
 
@@ -273,7 +261,7 @@ function getUserLicensingCost(plan, deploy, userCount) {
 
 function getUsageLicensingCost(plan, deploy, tierKey) {
   const planVal = planSelect.value;
-  const planKey = planNameToKey(planVal);
+  const planKey = planVal;
   const tierList = pricingData.licensingTiers.usageBased[planKey]?.[deploy];
   const matchedTier = tierList?.find(t => t.tierKey === tierKey);
   return matchedTier ? matchedTier.monthly * 12 : 0;
