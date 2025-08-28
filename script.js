@@ -41,6 +41,7 @@ const addonsDiscountInp = document.getElementById('addonsDiscount');
 
 // --- NEW: FUNCTION TO DISPLAY PLAN FEATURES ---
 function displayPlanFeatures(plan) {
+    // FIX: Convert plan name "Business Lite" to camelCase key "businessLite"
     const planKey = plan.split(' ').map((word, index) => 
         index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
     ).join('');
