@@ -39,13 +39,8 @@ const pricingData = {
         "Cloud": [{ "maxUsers": 100, "monthlyRate": 25 }, { "maxUsers": 300, "monthlyRate": 20 }, { "maxUsers": null, "monthlyRate": 15 }]
       },
       "Business Lite": {
-        "Cloud": [
-
-        
-
-          { "maxUsers": 300, "monthlyRate": 15 },{ "maxUsers": null, "monthlyRate": 12 }
-
-        ]
+        "Self Host": [{ "maxUsers": 300, "monthlyRate": 15 }, { "maxUsers": 500, "monthlyRate": 12 }, { "maxUsers": null, "monthlyRate": 10 }],
+        "Cloud": [{ "maxUsers": 300, "monthlyRate": 15 },{ "maxUsers": null, "monthlyRate": 12 }]
       }
     },
     "usageBased": {
