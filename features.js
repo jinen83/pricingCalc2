@@ -247,6 +247,7 @@ const planFeaturesData={
         "analyticsVendor": true,
         "environmentVariablesForSecrets": true,
         "platformAPIs": true,
+        "Custom SSO": true,
         "granularPermissions": false,
         "auditLogs": false,
         "secretManagerIntegration": false,
